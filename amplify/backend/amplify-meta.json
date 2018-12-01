@@ -1,0 +1,35 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "test-20181201142544-authRole",
+			"UnauthRoleArn": "arn:aws:iam::722485176076:role/test-20181201142544-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::722485176076:role/test-20181201142544-authRole",
+			"Region": "us-east-2",
+			"DeploymentBucketName": "test-20181201142544-deployment",
+			"UnauthRoleName": "test-20181201142544-unauthRole",
+			"StackName": "test-20181201142544",
+			"StackId": "arn:aws:cloudformation:us-east-2:722485176076:stack/test-20181201142544/e7828a50-f59e-11e8-a295-0658482cfd4e"
+		}
+	},
+	"auth": {
+		"cognitoecfd2157": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/test-20181201142544-deployment/amplify-cfn-templates/auth/cognitoecfd2157-cloudformation-template.yml",
+				"logicalId": "authcognitoecfd2157"
+			},
+			"lastPushTimeStamp": "2018-12-01T19:31:48.200Z",
+			"output": {
+				"AppClientSecret": "15j309i9tki6a4n4c2b5j99c6ik80ode8dq4bu4uoglpra1bjjbn",
+				"UserPoolId": "us-east-2_Tw7GqaHoF",
+				"AppClientIDWeb": "51p136bpmj3t0gk1t0to5uf9kd",
+				"AppClientID": "34cvsh9inkkevtvdv23mpod45m",
+				"IdentityPoolId": "us-east-2:f4c25750-c03f-4df2-a0ac-1dffef7e0cf4",
+				"IdentityPoolName": "cognitoecfd2157_identitypool_ecfd2157",
+				"UserPoolName": "cognitoecfd2157_userpool_ecfd2157"
+			},
+			"lastPushDirHash": "CH1+0KPGjGvfiFEIpNiZowVA3Ag="
+		}
+	}
+}
