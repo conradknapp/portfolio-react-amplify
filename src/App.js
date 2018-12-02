@@ -1,18 +1,14 @@
-import React, { Component } from "react";
-import Main from "./components/Main";
-import Navbar from "./components/Navbar";
+import React from "react";
 
+import Main from "./components/Main";
+import Navigation from "./components/Navigation";
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <Navbar />
-        <Main />
-      </>
-    );
-  }
+export default function App() {
+  return (
+    <>
+      <Navigation />
+      <Main />
+    </>
+  );
 }
-
-export default App;

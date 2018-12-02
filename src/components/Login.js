@@ -1,6 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
+import { Lead, BSpan } from "bootstrap-4-react";
 import { Authenticator } from "aws-amplify-react";
 
-export default function Login() {
-  return <Authenticator />;
+export default class Login extends Component {
+  render() {
+    const { user } = this.props;
+
+    return (
+      <>
+        {!user && <Authenticator />}
+        {user && (
+          <Lead>
+            You are signed in as <BSpan font="italic">{user.username}</BSpan>.
+          </Lead>
+        )}
+      </>
+    );
+  }
 }
