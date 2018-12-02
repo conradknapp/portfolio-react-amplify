@@ -24,6 +24,19 @@ const LoginItems = () => (
   </>
 );
 
+const ProfileItems = props => (
+  <>
+    <Nav.ItemLink href="/">Home</Nav.ItemLink>
+    <Nav.ItemLink href="/profile" active>
+      Profile
+    </Nav.ItemLink>
+    <Nav.ItemLink href="/login">
+      Login
+      <BSpan srOnly>(current}</BSpan>
+    </Nav.ItemLink>
+  </>
+);
+
 export default class Navigation extends Component {
   state = {
     user: null
@@ -58,6 +71,7 @@ export default class Navigation extends Component {
               <Switch>
                 <Route exact path="/" component={HomeItems} />
                 <Route path="/login" component={LoginItems} />
+                <Route path="/profile" component={ProfileItems} />
               </Switch>
             </Router>
           </Navbar.Nav>

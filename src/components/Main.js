@@ -5,6 +5,7 @@ import { Auth, Hub, Logger } from "aws-amplify";
 
 import Home from "./Home";
 import Login from "./Login";
+import Profile from "./Profile";
 
 const logger = new Logger("Main");
 
@@ -44,6 +45,11 @@ export default class Main extends Component {
             <Switch>
               <Route exact path="/" render={() => <Home user={user} />} />
               <Route exact path="/login" render={() => <Login user={user} />} />
+              <Route
+                exact
+                path="/profile"
+                render={() => <Profile user={user} />}
+              />
             </Switch>
           </Router>
         </div>
