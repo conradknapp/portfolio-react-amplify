@@ -10,18 +10,13 @@ import Profile from "./Profile";
 const logger = new Logger("Main");
 
 export default class Main extends Component {
-  constructor(props) {
-    super(props);
-
-    this.loadUser = this.loadUser.bind(this);
-
-    Hub.listen("auth", this, "main");
-
-    this.state = { user: null };
-  }
+  state = {
+    user: null
+  };
 
   componentDidMount() {
     this.loadUser();
+    Hub.listen("auth", this, "main");
   }
 
   onHubCapsule(capsule) {
@@ -31,7 +26,7 @@ export default class Main extends Component {
 
   loadUser() {
     Auth.currentAuthenticatedUser()
-      .then(user => this.setState({ user: user }))
+      .then(user => this.setState({ user }))
       .catch(err => this.setState({ user: null }));
   }
 

@@ -43,8 +43,8 @@ export default class Navigation extends Component {
   };
 
   componentDidMount() {
-    Hub.listen("auth", this, "navigator");
-    this.loadUser(); // The first check
+    this.loadUser();
+    Hub.listen("auth", this, this.onHubCapsule);
   }
 
   loadUser = () => {
@@ -55,10 +55,12 @@ export default class Navigation extends Component {
 
   onHubCapsule = capsule => {
     this.loadUser(); // Triggered every time user sign in / out
+    console.log({ capsule });
   };
 
   render() {
     const { user } = this.state;
+    console.log(this.props.profile);
 
     return (
       <Navbar expand="md" dark bg="dark" fixed="top">

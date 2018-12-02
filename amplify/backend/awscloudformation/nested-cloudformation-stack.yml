@@ -127,6 +127,21 @@
 					"authSelections": "identityPoolAndUserPool"
 				}
 			}
+		},
+		"storages32ba157e0": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/test-20181201142544-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"Parameters": {
+					"bucketName": "testc10ff86ded7c4e41941b42615c337b02",
+					"authPolicyName": "s3_amplify_2ba157e0",
+					"unauthPolicyName": "s3_amplify_2ba157e0",
+					"authRoleName": "test-20181201142544-authRole",
+					"unauthRoleName": "test-20181201142544-unauthRole",
+					"authPermissions": "rw",
+					"unauthPermissions": ""
+				}
+			}
 		}
 	},
 	"Outputs": {

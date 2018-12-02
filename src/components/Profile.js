@@ -1,75 +1,83 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Auth, Logger } from "aws-amplify";
 import { Container, Form, InputGroup, Button, Alert } from "bootstrap-4-react";
-// import { AppContext } from '../App'
+import { AppContext } from "../App";
 
 const logger = new Logger("Profile");
 
-export default class Profile extends Component {
-  state = {
-    profile: {
-      given_name: "",
-      family_name: ""
-    }
-  };
+export default function Profile({ user }) {
+  const [profile, setProfile] = useState({
+    given_name: "",
+    family_name: ""
+  });
+  const [error, setError] = useState();
+  const { dispatch } = useContext(AppContext);
 
-  componentDidMount() {
-    if (this.props.user) {
-      this.loadProfile();
-    }
-  }
+  useEffect(
+    () => {
+      if (user) {
+        loadProfile();
+      }
+    },
+    [user]
+  );
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.user && this.props.user) {
-      this.loadProfile();
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.user) {
+  //     this.loadProfile();
+  //   }
+  // }
 
-  handleInputChange = ({ target }) => {
+  // componentDidUpdate(prevProps) {
+  //   if (!prevProps.user && this.props.user) {
+  //     loadProfile();
+  //   }
+  // }
+
+  const handleInputChange = ({ target }) => {
     const { name, value } = target;
-    const profile = { ...this.state.profile };
-    profile[name] = value;
-    this.setState({ profile });
+    const updatedProfile = { ...profile };
+    updatedProfile[name] = value;
+    setProfile({ ...updatedProfile });
   };
 
-  loadProfile = () => {
-    const { user } = this.props;
+  const loadProfile = () => {
     Auth.userAttributes(user)
-      .then(data => this.loadSuccess(data))
-      .catch(err => this.handleError(err));
+      .then(data => loadSuccess(data))
+      .catch(err => handleError(err));
   };
 
-  saveProfile = () => {
-    const { user } = this.props;
+  const saveProfile = () => {
     if (!user) {
-      this.handleError("No user to save to");
+      handleError("No user to save to");
       return;
     }
 
-    Auth.updateUserAttributes(user, this.state.profile)
-      .then(data => this.saveSuccess(data))
-      .catch(err => this.handleError(err));
+    Auth.updateUserAttributes(user, profile)
+      .then(data => saveSuccess(data))
+      .catch(err => handleError(err));
   };
 
-  loadSuccess = data => {
+  const loadSuccess = data => {
     logger.info("loaded user attributes", data);
     console.log(data);
-    const profile = this.translateAttributes(data);
-    this.setState({ profile });
+    const profile = translateAttributes(data);
+    setProfile({ ...profile });
   };
 
-  saveSuccess = data => {
+  const saveSuccess = data => {
     logger.info("saved user profile", data);
+    dispatch({ type: "UPDATE_PROFILE", payload: profile });
   };
 
-  handleError = error => {
+  const handleError = error => {
     logger.info("load / save user attributes error", error);
-    this.setState({ error: error.message || error });
+    setError(error.message || error);
   };
 
   // Auth.userAttributes returns an array of attributes.
   // We map it to an object for easy use.
-  translateAttributes = data => {
+  const translateAttributes = data => {
     const profile = {};
     data
       .filter(attr => ["given_name", "family_name"].includes(attr.Name))
@@ -77,34 +85,32 @@ export default class Profile extends Component {
     return profile;
   };
 
-  render() {
-    const { profile, error } = this.state;
+  // const { profile, error } = this.state;
 
-    return (
-      <Container display="flex" flex="column" alignItems="center">
-        <InputGroup mb="3" style={{ maxWidth: "24rem" }}>
-          <InputGroup.PrependText>First name</InputGroup.PrependText>
-          <Form.Input
-            type="text"
-            name="given_name"
-            value={profile.given_name}
-            onChange={this.handleInputChange}
-          />
-        </InputGroup>
-        <InputGroup mb="3" style={{ maxWidth: "24rem" }}>
-          <InputGroup.PrependText>Last name</InputGroup.PrependText>
-          <Form.Input
-            type="text"
-            name="family_name"
-            value={profile.family_name}
-            onChange={this.handleInputChange}
-          />
-        </InputGroup>
-        <Button primary px="5" onClick={this.saveProfile}>
-          Save
-        </Button>
-        {error && <Alert warning>{error}</Alert>}
-      </Container>
-    );
-  }
+  return (
+    <Container display="flex" flex="column" alignItems="center">
+      <InputGroup mb="3" style={{ maxWidth: "24rem" }}>
+        <InputGroup.PrependText>First name</InputGroup.PrependText>
+        <Form.Input
+          type="text"
+          name="given_name"
+          value={profile.given_name}
+          onChange={handleInputChange}
+        />
+      </InputGroup>
+      <InputGroup mb="3" style={{ maxWidth: "24rem" }}>
+        <InputGroup.PrependText>Last name</InputGroup.PrependText>
+        <Form.Input
+          type="text"
+          name="family_name"
+          value={profile.family_name}
+          onChange={handleInputChange}
+        />
+      </InputGroup>
+      <Button primary px="5" onClick={saveProfile}>
+        Save
+      </Button>
+      {error && <Alert warning>{error}</Alert>}
+    </Container>
+  );
 }

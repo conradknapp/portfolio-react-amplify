@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/test-20181201142544-deployment/amplify-cfn-templates/auth/cognitoecfd2157-cloudformation-template.yml",
 				"logicalId": "authcognitoecfd2157"
 			},
-			"lastPushTimeStamp": "2018-12-01T19:31:48.200Z",
+			"lastPushTimeStamp": "2018-12-02T20:08:08.170Z",
 			"output": {
 				"AppClientSecret": "15j309i9tki6a4n4c2b5j99c6ik80ode8dq4bu4uoglpra1bjjbn",
 				"UserPoolId": "us-east-2_Tw7GqaHoF",
@@ -30,6 +30,22 @@
 				"UserPoolName": "cognitoecfd2157_userpool_ecfd2157"
 			},
 			"lastPushDirHash": "CH1+0KPGjGvfiFEIpNiZowVA3Ag="
+		}
+	},
+	"storage": {
+		"s32ba157e0": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/test-20181201142544-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"logicalId": "storages32ba157e0"
+			},
+			"lastPushTimeStamp": "2018-12-02T20:08:08.175Z",
+			"output": {
+				"BucketName": "testc10ff86ded7c4e41941b42615c337b02",
+				"Region": "us-east-2"
+			},
+			"lastPushDirHash": "cSJZb3bL112TNteBsbBS4QPi10g="
 		}
 	}
 }
